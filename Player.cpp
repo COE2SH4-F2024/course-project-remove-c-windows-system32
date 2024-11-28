@@ -5,7 +5,7 @@ Player::Player(GameMechs* thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
-    List = new objPosArrayList();
+    objPosArrayList* List = new objPosArrayList();
 
     // more actions to be included
 }
@@ -14,17 +14,20 @@ Player::Player(GameMechs* thisGMRef)
 Player::~Player()
 {
     // delete any heap members here
-    delete List;
+    delete mainGameMechsRef;
+    
 }
 
-void Player::getPlayerPos(objPos &returnPos) const
+objPos Player::getPlayerPos() const
 {
-    // return the reference to the playerPos arrray list
+    return playerPos; 
 }
 
 void Player::updatePlayerDir()
 {
-        // PPA3 input processing logic          
+        // PPA3 input processing logic  
+    //get the input from the user and update the direction accordingly
+
 }
 
 void Player::movePlayer()

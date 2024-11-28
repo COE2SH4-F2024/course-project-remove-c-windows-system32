@@ -47,6 +47,8 @@ class GameMechs
         // [TODO] Implement the missing special member functions to meet the minimum four rule
         GameMechs(const GameMechs& other);
         GameMechs& operator=(const GameMechs& other);
+        void Cook(objPosArrayList* snake);
+
 
 };
 

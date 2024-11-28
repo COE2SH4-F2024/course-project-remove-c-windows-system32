@@ -1,0 +1,19 @@
+{
+  "commands": [
+    {
+      "directory": "/c:/Users/deevr/OneDrive/Documents/Course Projects/CompEng 2SH4/course-project-remove-c-windows-system32",
+      "command": "g++ -o objPosArrayList.o -c objPosArrayList.cpp",
+      "file": "objPosArrayList.cpp"
+    },
+    {
+      "directory": "/c:/Users/deevr/OneDrive/Documents/Course Projects/CompEng 2SH4/course-project-remove-c-windows-system32",
+      "command": "g++ -o main.o -c main.cpp",
+      "file": "main.cpp"
+    },
+    {
+      "directory": "/c:/Users/deevr/OneDrive/Documents/Course Projects/CompEng 2SH4/course-project-remove-c-windows-system32",
+      "command": "g++ -o project_executable objPosArrayList.o main.o",
+      "file": "main.cpp"
+    }
+  ]
+}

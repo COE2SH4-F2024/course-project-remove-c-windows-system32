@@ -5,7 +5,7 @@ GameMechs::GameMechs()
     exitFlag = false;
     loseFlag = false;
     score = 0;
-    boardSizeX = 10;
+    boardSizeX = 20;
     boardSizeY = 10;
 }
 
@@ -21,7 +21,7 @@ GameMechs::GameMechs(int boardX, int boardY)
 // do you need a destructor?
 GameMechs::~GameMechs()
 {
-    delete food;
+    delete &food;
 }
 
 bool GameMechs::getExitFlagStatus() const
@@ -82,3 +82,8 @@ void GameMechs::clearInput()
 }
 
 // More methods should be added here
+void GameMechs::Cook(objPosArrayList* snake)
+{
+    //
+    
+}
