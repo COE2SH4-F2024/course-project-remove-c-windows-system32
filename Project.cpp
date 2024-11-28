@@ -40,12 +40,25 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    exitFlag = false;
+    GameMechs* gameMechs = new GameMechs(10,10);
+    Player player = new Player(gameMechs);
+
+    player.getPlayerPos().setObjPos(5,5,'@');
+    player.Dir = Player::STOP;
+
+    exitFlag = *gameMechs.getExitFlagStatus();
 }
 
 void GetInput(void)
 {
-   
+    if(MacUILib_hasChar())
+    {
+        char input = MacUILib_getChar();
+        if(input == ' ')
+        {
+            exitFlag = true;
+        }
+    }
 }
 
 void RunLogic(void)
@@ -55,7 +68,15 @@ void RunLogic(void)
 
 void DrawScreen(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen();
+    for(int i = 0; i < ; i++)
+    {
+        for(int j = 0; j < ; j++)
+        {
+            // [TODO] Draw the game board here
+        }
+        MacUILib_printf("\n");
+    }
 }
 
 void LoopDelay(void)

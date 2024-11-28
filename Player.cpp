@@ -5,6 +5,7 @@ Player::Player(GameMechs* thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
+    List = new objPosArrayList();
 
     // more actions to be included
 }
@@ -13,6 +14,7 @@ Player::Player(GameMechs* thisGMRef)
 Player::~Player()
 {
     // delete any heap members here
+    delete List;
 }
 
 void Player::getPlayerPos(objPos &returnPos) const
