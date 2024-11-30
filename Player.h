@@ -17,12 +17,14 @@ class Player
     public:
         enum Dir {UP, DOWN, LEFT, RIGHT, STOP};  // This is the direction state
 
+        Player();
         Player(GameMechs* thisGMRef);
         ~Player();
 
         objPos getPlayerPos() const; // Upgrade this in iteration 3.       
-        void updatePlayerDir(char input);
+        void updatePlayerDir();
         void movePlayer();
+
 
         // More methods to be added here
         Player(const Player& other);
@@ -33,6 +35,7 @@ class Player
     private:
         objPos playerPos; // Upgrade this in iteration 3.       
         enum Dir myDir;
+        objPosArrayList* snake; // This is the snake body list //Will be upgraded in iteration 3
 
         // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;
