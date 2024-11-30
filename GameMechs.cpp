@@ -1,12 +1,16 @@
 #include "GameMechs.h"
+#include <stdio.h>
 
 GameMechs::GameMechs()
 {
     exitFlag = false;
     loseFlag = false;
     score = 0;
-    boardSizeX = 20;
-    boardSizeY = 10;
+    boardSizeX = BOARD_SIZE_X;
+    boardSizeY = BOARD_SIZE_Y;
+    borderChar = '#';
+    food.symbol = 'O';
+    //create food object
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
@@ -16,6 +20,8 @@ GameMechs::GameMechs(int boardX, int boardY)
     exitFlag = false;
     loseFlag = false;
     score = 0;
+    borderChar = '#';
+    //create food object
 }
 
 // do you need a destructor?
@@ -85,5 +91,78 @@ void GameMechs::clearInput()
 void GameMechs::Cook(objPosArrayList* snake)
 {
     //
+
+}
+
+void GameMechs::CheckCollision(objPosArrayList* snake)
+{
+    //
+
+}
+
+int GameMechs::GetRandomNumber(int min, int max)
+{
+    printf("Actually implement this function\n");
+    return 0;
+}
+
+int GameMechs::getFoodX() const
+{
+    return food.pos->x;
+}
+
+int GameMechs::getFoodY() const
+{
+    return food.pos->y;
+}
+
+char GameMechs::getBoardElement(int x, int y) const
+{
+    return board[x][y];
+}
+
+void GameMechs::setBoardElement(int x, int y, char thisChar)
+{
+    board[x][y] = thisChar;
+}
+
+char GameMechs::getBorderChar() const
+{
+    return borderChar;
+}
+
+GameMechs::GameMechs(const GameMechs& other)
+{
+    input = other.input;
+    exitFlag = other.exitFlag;
+    loseFlag = other.loseFlag;
+    score = other.score;
+    boardSizeX = other.boardSizeX;
+    boardSizeY = other.boardSizeY;
+    borderChar = other.borderChar;
+    food = other.food;
+}
+
+GameMechs& GameMechs::operator=(const GameMechs& other)
+{
+    if(this == &other)
+    {
+        return *this;
+    }
     
+    input = other.input;
+    exitFlag = other.exitFlag;
+    loseFlag = other.loseFlag;
+    score = other.score;
+    boardSizeX = other.boardSizeX;
+    boardSizeY = other.boardSizeY;
+    borderChar = other.borderChar;
+    food = other.food;
+    
+    return *this;
+}
+
+char GameMechs::getFoodSymbol() const
+{
+    return food.symbol;
 }

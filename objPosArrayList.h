@@ -16,6 +16,9 @@ class objPosArrayList
         objPosArrayList();
         objPosArrayList(int size);
         ~objPosArrayList();
+        //rule of 6/4 stuff
+        objPosArrayList(const objPosArrayList& other);
+        objPosArrayList& operator=(const objPosArrayList& other);
 
         int getSize() const;
         void insertHead(objPos thisPos);

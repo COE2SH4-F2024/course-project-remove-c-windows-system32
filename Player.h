@@ -21,12 +21,14 @@ class Player
         ~Player();
 
         objPos getPlayerPos() const; // Upgrade this in iteration 3.       
-        void updatePlayerDir();
+        void updatePlayerDir(char input);
         void movePlayer();
 
         // More methods to be added here
         Player(const Player& other);
         Player& operator=(const Player& other);
+
+
 
     private:
         objPos playerPos; // Upgrade this in iteration 3.       

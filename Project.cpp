@@ -10,7 +10,7 @@ using namespace std;
 bool exitFlag;
 GameMechs* gameMechs;
 Player* player;
-char gameBoard[20][10];  // [TODO] Initialize the game board here
+char gameBoard[20][10];  //moved to GameMechs but still here as a failsafe
 
 void Initialize(void);
 void GetInput(void);
@@ -23,9 +23,7 @@ void CleanUp(void);
 
 int main(void)
 {
-
     Initialize();
-
     while(exitFlag == false)  
     {
         GetInput();
@@ -44,12 +42,16 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
+    gameMechs = new GameMechs();
     player = new Player(gameMechs);
     Player* player = new Player(gameMechs);
 
     player->getPlayerPos().setObjPos(5, 5, '@');
 
     exitFlag = gameMechs->getExitFlagStatus();
+    
+
+
 }
 
 void GetInput(void)
@@ -57,45 +59,61 @@ void GetInput(void)
     if(MacUILib_hasChar())
     {
         char input = MacUILib_getChar();
-        if(input == ' ')
+        switch (input)
         {
+        case ' ':
             exitFlag = true;
+            gameMechs->setExitTrue();
+            gameMechs->setLoseFlag();
+            gameMechs->setInput(input);
+            break;
+        
+        default:
+        player->updatePlayerDir(input);
+            gameMechs->setInput(input);
+            break;
         }
     }
 }
 
 void RunLogic(void)
 {
-    
-}
-
-void DrawScreen(void)
-{
-    MacUILib_clearScreen();
     for (int i = 0; i < gameMechs->getBoardSizeX(); i++)
     {
         for (int j = 0; j < gameMechs->getBoardSizeY(); j++)
         {
             // [TODO] Draw the game board here
-            //first draw the player and object, and then the rest of the board
+            //place the player
             if (i == player->getPlayerPos().pos->x && j == player->getPlayerPos().pos->y)
             {
-                printf("%c", player->getPlayerPos().symbol);
+                gameBoard[i][j] = player->getPlayerPos().symbol;
             }
-            //check and print out food
-            else if ()//stuff here
+            //set food
+            else if (i == gameMechs->getFoodX() && j == gameMechs->getFoodY())//compare food position with i and j
             {
-                printf("");
+                gameBoard[i][j] = gameMechs->getFoodSymbol();
             }
-            //print border
+            //set border
             else if (i == 0 || i == gameMechs->getBoardSizeX() - 1 || j == 0 || j == gameMechs->getBoardSizeY() - 1)
             {
-                printf("#");
+                gameBoard[i][j] = gameMechs->getBorderChar();
             }
             else
             {
-                printf("%c", gameBoard[i][j]);
+                gameBoard[i][j] = ' ';
             }
+        }
+    }
+}
+
+void DrawScreen(void)
+{
+    MacUILib_clearScreen();
+    for(int i = 0; i < gameMechs->getBoardSizeX(); i++)
+    {
+        for(int j = 0; j < gameMechs->getBoardSizeY(); j++)
+        {
+            printf("%c", gameBoard[i][j]);
         }
         printf("\n");
     }
