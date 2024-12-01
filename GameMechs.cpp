@@ -1,6 +1,7 @@
 #include "GameMechs.h"
 #include <stdio.h>
 
+
 GameMechs::GameMechs()
 {
     exitFlag = false;

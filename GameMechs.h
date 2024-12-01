@@ -1,7 +1,7 @@
 #ifndef GAMEMECHS_H
 #define GAMEMECHS_H
-#define BOARD_SIZE_X 20
-#define BOARD_SIZE_Y 10
+#define BOARD_SIZE_X 30
+#define BOARD_SIZE_Y 15
 
 #include <cstdlib>
 #include <time.h>

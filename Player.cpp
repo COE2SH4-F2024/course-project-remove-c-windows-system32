@@ -6,7 +6,7 @@ Player::Player()
     mainGameMechsRef = new GameMechs();
     myDir = STOP;
     objPosArrayList* snake = new objPosArrayList(10);
-    objPos playerPos = objPos(10, 5, '*');
+    objPos playerPos = objPos(14, 7, '*');
 
     // more things
 }
@@ -18,7 +18,7 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     snake = new objPosArrayList(10);
-    playerPos = objPos(10, 5, '*');  // Initialize the member variable
+    playerPos = objPos(14, 7, '*');  // Initialize the member variable
 
     // more things
 }
@@ -87,8 +87,8 @@ void Player::movePlayer()
     }
 
     //Do the wraparound logic
-    playerPos.pos->x %= 20; //This is here as a failsafe because sometimes funky stuff happened in PPA3 without this statement
-    playerPos.pos->y %= 10;
+    playerPos.pos->x %= mainGameMechsRef->getBoardSizeX(); //This is here as a failsafe because sometimes funky stuff happened in PPA3 without this statement
+    playerPos.pos->y %= mainGameMechsRef->getBoardSizeY();
 
     //Proper wraparound logic
     if(playerPos.pos->x > mainGameMechsRef->getBoardSizeX() - 2)

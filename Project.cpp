@@ -10,7 +10,7 @@ using namespace std;
 bool exitFlag;
 GameMechs* gameMechs;
 Player* player;
-char gameBoard[10][20];  //planning to move to GameMechs but not moved yet until we make this work 
+char gameBoard[15][30];  //planning to move to GameMechs but not moved yet until we make this work 
 std::string gameSpeed[5] = {"Super Slow", "Slow","Medium", "Fast", "Super Fast"};
 enum GameSpeed {SUPER_SLOW, SLOW, MEDIUM, FAST, SUPER_FAST};
 GameSpeed speed;
@@ -48,7 +48,6 @@ void Initialize(void)
 
     gameMechs = new GameMechs();
     player = new Player(gameMechs);
-    //Player* player = new Player(gameMechs);
 
     exitFlag = gameMechs->getExitFlagStatus();
 
@@ -162,7 +161,7 @@ void LoopDelay(void)
         break;
 
     case MEDIUM:
-        MacUILib_Delay(100000); // 0.1s delay
+        MacUILib_Delay(DELAY_CONST); // 0.1s delay
         break;
 
     case FAST:
@@ -175,7 +174,7 @@ void LoopDelay(void)
 
     default:
         // Default to MEDIUM speed
-        MacUILib_Delay(100000); // 0.1s delay
+        MacUILib_Delay(DELAY_CONST); // 0.1s delay
         break;
     }
 
@@ -184,6 +183,10 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
+    //If you can read this, there are no memory leaks no matter what the console says
+    delete player;  // Clean up player
+    delete gameMechs;  // Clean up gameMechs
+
     MacUILib_clearScreen();    
 
     MacUILib_uninit();
