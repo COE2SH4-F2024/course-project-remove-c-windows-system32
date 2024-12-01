@@ -83,14 +83,14 @@ void testInsertHead_1Element()
 	bool actualCheck;
 
 	// Then check whether the head element is what we have inserted.
-	currentPos = thisList.getHeadElement();
+	currentPos = thisList.getHead();
 	actualCheck = samplePos.isPosEqual(&currentPos);
 
 	result &= assert_equal(expectedCheck, actualCheck);
 
 
 	// Next, check whether the tail element is also the head element in a list of 1 element.
-	currentPos = thisList.getTailElement();
+	currentPos = thisList.getTail();
 	actualCheck = samplePos.isPosEqual(&currentPos);
 
 	result &= assert_equal(expectedCheck, actualCheck);
@@ -137,7 +137,7 @@ void testInsertHead_5Element()
 	bool actualCheck;
 
 	// Then, check the head element is the unique element
-	currentPos = thisList.getHeadElement();
+	currentPos = thisList.getHead();
 	actualCheck = headPos.isPosEqual(&currentPos);
 
 	result &= assert_equal(expectedCheck, actualCheck);
@@ -152,7 +152,7 @@ void testInsertHead_5Element()
 	}
 
 	// Finally, check the tail element is the body element
-	currentPos = thisList.getTailElement();
+	currentPos = thisList.getTail();
 	actualCheck = bodyPos.isPosEqual(&currentPos);
 
 	result &= assert_equal(expectedCheck, actualCheck);
@@ -186,14 +186,14 @@ void testInsertTail_1Element()
 	bool actualCheck;
 
 	// Then check whether the head element is what we have inserted.
-	currentPos = thisList.getHeadElement();
+	currentPos = thisList.getHead();
 	actualCheck = samplePos.isPosEqual(&currentPos);
 
 	result &= assert_equal(expectedCheck, actualCheck);
 
 
 	// Next, check whether the tail element is also the head element in a list of 1 element.
-	currentPos = thisList.getTailElement();
+	currentPos = thisList.getTail();
 	actualCheck = samplePos.isPosEqual(&currentPos);
 
 	result &= assert_equal(expectedCheck, actualCheck);
@@ -239,7 +239,7 @@ void testInsertTail_5Element()
 	bool actualCheck;
 
 	// Then, check the head element is the common body element
-	currentPos = thisList.getHeadElement();
+	currentPos = thisList.getHead();
 	actualCheck = bodyPos.isPosEqual(&currentPos);
 
 	result &= assert_equal(expectedCheck, actualCheck);
@@ -254,7 +254,7 @@ void testInsertTail_5Element()
 	}
 
 	// Finally, check the tail element is the body element
-	currentPos = thisList.getTailElement();
+	currentPos = thisList.getTail();
 	actualCheck = tailPos.isPosEqual(&currentPos);
 
 	result &= assert_equal(expectedCheck, actualCheck);
@@ -319,7 +319,7 @@ void testRemoveHead_5Element()
 	bool actualCheck;
 
 	// Then, check the unique element has been removed
-	currentPos = thisList.getHeadElement();
+	currentPos = thisList.getHead();
 	actualCheck = bodyPos.isPosEqual(&currentPos);
 
 	result &= assert_equal(expectedCheck, actualCheck);
@@ -394,7 +394,7 @@ void testRemoveTail_5Element()
 	bool actualCheck;
 
 	// Then, check the tail element removed
-	currentPos = thisList.getTailElement();
+	currentPos = thisList.getTail();
 	actualCheck = bodyPos.isPosEqual(&currentPos);
 
 	result &= assert_equal(expectedCheck, actualCheck);

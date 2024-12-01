@@ -6,30 +6,17 @@ objPosArrayList::objPosArrayList()
     listSize = 1;
     arrayCapacity = ARRAY_MAX_CAP;
 
-    for(int i = 0; i < arrayCapacity; i++)
+    // Initialize the array
+    for (int i = 0; i < arrayCapacity; i++)
     {
         aList[i] = objPos();
     }
-
-
-}
-
-objPosArrayList::objPosArrayList(int size)
-{
-    aList = new objPos[size];
-    listSize = 1;
-    arrayCapacity = size;
-
-    for(int i = 0; i < arrayCapacity; i++)
-    {
-        aList[i] = objPos();
-    }
-
 }
 
 objPosArrayList::~objPosArrayList()
 {
     delete[] aList;
+
 }
 
 // [TODO] Implement the missing special member functions to meet the minimum four rule
@@ -52,7 +39,24 @@ objPosArrayList::objPosArrayList(const objPosArrayList& other)
 //copy assignment operator
 objPosArrayList& objPosArrayList::operator=(const objPosArrayList& other)
 {
+    //do copy assignment operator stuff
+    if(this == &other)
+    {
+        return *this;
+    }
 
+    delete[] aList;
+
+    objPos* aList = new objPos[other.arrayCapacity];
+    listSize = other.listSize;
+    arrayCapacity = other.arrayCapacity;
+
+    for(int i = 0; i < arrayCapacity; i++)
+    {
+        aList[i] = other.aList[i];
+    }
+
+    return *this;
 }
 
 int objPosArrayList::getSize() const
