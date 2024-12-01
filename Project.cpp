@@ -2,6 +2,8 @@
 #include "MacUILib.h"
 #include "objPos.h"
 #include "Player.h"
+#include "GameMechs.h"
+#include "Food.h"
 
 using namespace std;
 
@@ -10,6 +12,7 @@ using namespace std;
 bool exitFlag;
 GameMechs* gameMechs;
 Player* player;
+Food* food;
 char gameBoard[15][30];  //planning to move to GameMechs but not moved yet until we make this work 
 std::string gameSpeed[5] = {"Super Slow", "Slow","Medium", "Fast", "Super Fast"};
 enum GameSpeed {SUPER_SLOW, SLOW, MEDIUM, FAST, SUPER_FAST};
@@ -48,6 +51,7 @@ void Initialize(void)
 
     gameMechs = new GameMechs();
     player = new Player(gameMechs);
+    food = new Food(gameMechs);
 
     exitFlag = gameMechs->getExitFlagStatus();
 
@@ -115,14 +119,14 @@ void RunLogic(void)
                 gameBoard[i][j] = player->getPlayerPos().symbol;
             }
             //set food
-            else if (j == gameMechs->getFoodX() && i == gameMechs->getFoodY())//compare food position with i and j
+            else if (j == food->getFoodPos().pos->x && i == food->getFoodPos().pos->y)//compare food position with i and j
             {
-                gameBoard[i][j] = gameMechs->getFoodSymbol();
+                gameBoard[i][j] = food->getFoodPos().symbol;
             }
             //set border
             else if (j == 0 || j == gameMechs->getBoardSizeX() - 1 || i == 0 || i == gameMechs->getBoardSizeY() - 1)
             {
-                gameBoard[i][j] = gameMechs->getBorderChar();
+                gameBoard[i][j] = gameMechs->getBorderChar();//
             }
             else
             {

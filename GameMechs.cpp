@@ -174,3 +174,9 @@ char GameMechs::getFoodSymbol() const
 {
     return food.symbol;
 }
+
+//generates a number in the rangr of [min, max]
+int GameMechs::getRand(int min, int max)
+{
+    return rand() % (max - min + 1) + min;
+}

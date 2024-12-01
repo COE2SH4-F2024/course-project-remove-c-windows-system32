@@ -14,7 +14,6 @@ class objPosArrayList
 
     public:
         objPosArrayList();
-        objPosArrayList(int size);
         ~objPosArrayList();
         //rule of 6/4 stuff
         objPosArrayList(const objPosArrayList& other);

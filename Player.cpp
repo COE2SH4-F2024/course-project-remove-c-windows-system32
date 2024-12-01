@@ -5,7 +5,7 @@ Player::Player()
     // default constructor
     mainGameMechsRef = new GameMechs();
     myDir = STOP;
-    objPosArrayList* snake = new objPosArrayList(10);
+    objPosArrayList* snake = new objPosArrayList();
     objPos playerPos = objPos(14, 7, '*');
 
     // more things
@@ -17,8 +17,8 @@ Player::Player(GameMechs* thisGMRef)
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
-    snake = new objPosArrayList(10);
-    playerPos = objPos(14, 7, '*');  // Initialize the member variable
+    snake = new objPosArrayList();
+    playerPos = objPos(14, 7, '*');  
 
     // more things
 }

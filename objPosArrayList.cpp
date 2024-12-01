@@ -3,7 +3,7 @@
 objPosArrayList::objPosArrayList()
 {
     aList = new objPos[ARRAY_MAX_CAP];
-    listSize = 1;
+    listSize = 0;
     arrayCapacity = ARRAY_MAX_CAP;
 
     // Initialize the array
