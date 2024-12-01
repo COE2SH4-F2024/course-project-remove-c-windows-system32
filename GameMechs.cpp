@@ -10,8 +10,6 @@ GameMechs::GameMechs()
     boardSizeX = BOARD_SIZE_X;
     boardSizeY = BOARD_SIZE_Y;
     borderChar = '#';
-    food.symbol = 'O';
-    //create food object
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
@@ -22,13 +20,12 @@ GameMechs::GameMechs(int boardX, int boardY)
     loseFlag = false;
     score = 0;
     borderChar = '#';
-    //create food object
 }
 
 // do you need a destructor?
 GameMechs::~GameMechs()
 {
-    delete &food;
+    //was needed before, now not sure but we leave it in for now
 }
 
 bool GameMechs::getExitFlagStatus() const
@@ -40,7 +37,6 @@ bool GameMechs::getLoseFlagStatus() const
 {
     return loseFlag;
 }
-    
 
 char GameMechs::getInput() const
 {
@@ -89,13 +85,8 @@ void GameMechs::clearInput()
 }
 
 // More methods should be added here
-void GameMechs::Cook(objPosArrayList* snake)
-{
-    //
 
-}
-
-void GameMechs::CheckCollision(objPosArrayList* snake)
+void GameMechs::CheckCollision(objPosArrayList* snake, objPos food)
 {
     //
 
@@ -107,15 +98,6 @@ int GameMechs::GetRandomNumber(int min, int max)
     return 0;
 }
 
-int GameMechs::getFoodX() const
-{
-    return food.pos->x;
-}
-
-int GameMechs::getFoodY() const
-{
-    return food.pos->y;
-}
 
 char GameMechs::getBoardElement(int x, int y) const
 {
@@ -163,10 +145,6 @@ GameMechs& GameMechs::operator=(const GameMechs& other)
     return *this;
 }
 
-char GameMechs::getFoodSymbol() const
-{
-    return food.symbol;
-}
 
 //generates a number in the rangr of [min, max]
 int GameMechs::getRand(int min, int max)

@@ -51,18 +51,16 @@ class GameMechs
         char getBoardElement(int x, int y) const;
         void setBoardElement(int x, int y, char thisChar);
         char getBorderChar() const;
+        void CheckCollision(objPosArrayList* snake, objPos food);
+        int GetRandomNumber(int min, int max);
         
         // More methods should be added here
 
         // [TODO] Implement the missing special member functions to meet the minimum four rule
         GameMechs(const GameMechs& other);
         GameMechs& operator=(const GameMechs& other);
-        void Cook(objPosArrayList* snake); //Spawn food (Cooking) 
-        void CheckCollision(objPosArrayList* snake);
-        int GetRandomNumber(int min, int max);
-        int getFoodX() const;
-        int getFoodY() const;
-        char getFoodSymbol() const;
+
+        
 };
 
 #endif
