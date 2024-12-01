@@ -33,14 +33,7 @@ GameMechs::~GameMechs()
 
 bool GameMechs::getExitFlagStatus() const
 {
-    if(input == ' ')
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return exitFlag;
 }
 
 bool GameMechs::getLoseFlagStatus() const

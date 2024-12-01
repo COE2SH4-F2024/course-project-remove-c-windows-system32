@@ -28,7 +28,7 @@ Food::~Food()
 void Food::cook()
 {
     //generate the food at a random location
-    foodPos.setObjPos(mechs->getRand(1,29),mechs->getRand(1,14) , 'O');
+    foodPos.setObjPos(mechs->getRand(1,28),mechs->getRand(1,13) , 'O');
 }
 
 objPos Food::getFoodPos() const

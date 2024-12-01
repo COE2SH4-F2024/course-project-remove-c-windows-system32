@@ -75,6 +75,9 @@ void GetInput(void)
     
     switch (gameMechs->getInput())
     {
+        case ' ':
+            gameMechs->setExitTrue();
+            break;
         case '1':
             speed = SUPER_SLOW;
             break;
@@ -90,17 +93,22 @@ void GetInput(void)
         case '5':
             speed = SUPER_FAST;
             break;
+        //debug key to be removed later
+        case 'b':
+            food->cook();
+            printf("b");
+            break;
     
     default:
         break;
     }
+    gameMechs->clearInput();//clear the input after processing
 }
 
 void RunLogic(void)
 {
     player->movePlayer();
     //gameMechs->CheckCollision(player->snake); //Reminder only really needs to head of the snake collides with things
-    //gameMechs->Cook(player->snake);//only of the food is eaten
 
     //Check if the player has hit the exit key
     if(gameMechs->getExitFlagStatus() == true)
