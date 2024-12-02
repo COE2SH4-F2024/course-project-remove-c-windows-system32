@@ -122,12 +122,12 @@ void RunLogic(void)
         {
             // [TODO] Draw the game board here
             //place the player
-            if (j == player->getPlayerPos().pos->x && i == player->getPlayerPos().pos->y)
-            {
-                gameBoard[i][j] = player->getPlayerPos().symbol;
-            }
-            //set food
-            else if (j == food->getFoodPos().pos->x && i == food->getFoodPos().pos->y)//compare food position with i and j
+            // if (j == player->getPlayerPos().pos->x && i == player->getPlayerPos().pos->y)
+            // {
+            //     gameBoard[i][j] = player->getPlayerPos().symbol;
+            // }
+            // //set food
+            if (j == food->getFoodPos().pos->x && i == food->getFoodPos().pos->y)//compare food position with i and j
             {
                 gameBoard[i][j] = food->getFoodPos().symbol;
             }
@@ -140,6 +140,11 @@ void RunLogic(void)
             {
                 gameBoard[i][j] = ' ';
             }
+        }
+        //add the snakebody to the board
+        for (int i = 0; i < player->getSnakeSize(); i++)
+        {
+            gameBoard[player->getElement(i).pos->y][player->getElement(i).pos->x] = player->getElement(i).symbol;
         }
     }
 }

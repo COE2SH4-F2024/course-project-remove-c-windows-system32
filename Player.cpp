@@ -18,7 +18,8 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     snake = new objPosArrayList();
-    playerPos = objPos(14, 7, '*');  
+    snake->insertHead(objPos(14, 7, '*'));
+    playerPos = objPos(14, 7, '*');  //Tracks the head position simplifies things a bit but is less efficient
 
     // more things
 }
@@ -66,21 +67,26 @@ void Player::updatePlayerDir()
 
 void Player::movePlayer()
 {
+    moved = false;
     // PPA3 Finite State Machine logic
 
-    switch (myDir)
+    switch (myDir) //apply snake logic for movement
     {
     case UP:
         playerPos.pos->y--;
+        moved = true;
         break;
     case DOWN:
         playerPos.pos->y++;
+        moved = true;
         break;
     case LEFT:
         playerPos.pos->x--;
+        moved = true;
         break;
     case RIGHT:
         playerPos.pos->x++;
+        moved = true;
         break;
     default:
         break;
@@ -109,6 +115,11 @@ void Player::movePlayer()
         playerPos.pos->y = mainGameMechsRef->getBoardSizeY() - 2;
     }
         
+    //insert new head and delete old tail
+    snake->insertHead(objPos(playerPos.pos->x, playerPos.pos->y, '*'));
+    snake->removeTail();
+
+    moved = false;
 }
 
 // More methods to be added
@@ -132,4 +143,14 @@ Player& Player::operator=(const Player& other)
     myDir = other.myDir;
     mainGameMechsRef = other.mainGameMechsRef;
     return *this;
+}
+
+int Player::getSnakeSize() const
+{
+    return snake->getSize();
+}
+
+objPos Player::getElement(int index) const
+{
+    return snake->getElement(index);
 }

@@ -29,6 +29,8 @@ class Player
         // More methods to be added here
         Player(const Player& other);
         Player& operator=(const Player& other);
+        int getSnakeSize() const;
+        objPos getElement(int index) const;
 
 
 
@@ -36,6 +38,7 @@ class Player
         objPos playerPos; // Upgrade this in iteration 3.       
         enum Dir myDir;
         objPosArrayList* snake; // This is the snake body list //Will be upgraded in iteration 3
+        bool moved; // This is a flag to indicate if the snake has moved or not
 
         // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;
