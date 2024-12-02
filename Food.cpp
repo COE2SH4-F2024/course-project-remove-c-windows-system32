@@ -4,8 +4,8 @@ Food::Food()
 {
     foodPos = objPos();
     mechs = new GameMechs();
+    foodArray = new objPosArrayList();
     foodPos.setObjPos(mechs->getRand(1,28), mechs->getRand(1,13), 'O');
-    specialFoodPos = objPos();
 
 }
 

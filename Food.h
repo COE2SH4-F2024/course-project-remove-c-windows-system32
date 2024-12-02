@@ -1,12 +1,13 @@
 #include "objPos.h"
 #include "GameMechs.h"
+#include "objPosArrayList.h"
 
 class Food
 {
     private:
         objPos foodPos;
-        objPos specialFoodPos;
         GameMechs* mechs;
+        objPosArrayList* foodArray;
         
     public:
         Food();
