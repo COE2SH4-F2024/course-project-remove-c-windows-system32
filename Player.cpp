@@ -151,3 +151,31 @@ void Player::growSnake()
     //the new element should be the same as the last element
     snake->insertTail(snake->getTail());
 }
+
+bool Player::hasEaten(objPos food)
+{
+    //check if the snake has eaten the food
+    //if the snake has eaten the food, grow the snake
+    //if(snake->getHead().isPosEqual(&food))
+    if(snake->getHead().pos->x == food.pos->x && snake->getHead().pos->y == food.pos->y)
+    {
+        growSnake();
+        mainGameMechsRef->incrementScore();
+        return true;
+    }
+    return false;
+}
+
+void Player::checkCollision()
+{
+    //check if the snake has collided with itself
+    //if the snake has collided with itself, the player loses
+    for(int i = 1; i < snake->getSize(); i++)
+    {
+        if(snake->getHead().isPosEqual(snake->getElement(i)))
+        {
+            mainGameMechsRef->setLoseFlag();
+            mainGameMechsRef->setExitTrue();
+        }
+    }
+}

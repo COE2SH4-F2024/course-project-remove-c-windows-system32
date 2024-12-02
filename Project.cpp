@@ -77,6 +77,7 @@ void GetInput(void)
     {
         case ' ':
             gameMechs->setExitTrue();
+            gameMechs->setLoseFlag();
             break;
         case '1':
             speed = SUPER_SLOW;
@@ -111,13 +112,24 @@ void GetInput(void)
 void RunLogic(void)
 {
     player->movePlayer();
-    //gameMechs->CheckCollision(player->snake); //Reminder only really needs to head of the snake collides with things
+    if(player->hasEaten(food->getFoodPos()) == true)
+    {
+        food->cook();
+        printf("Food eaten\n");//
+    }
+    player->checkCollision();
+    
 
     //Check if the player has hit the exit key
     if(gameMechs->getExitFlagStatus() == true)
     {
         exitFlag = true;
     }
+    else if(gameMechs->getScore() >= 10)
+    {
+        exitFlag = true;
+    }
+
 
     for (int i = 0; i < gameMechs->getBoardSizeY(); i++)
     {
@@ -201,13 +213,26 @@ void LoopDelay(void)
 }
 
 
-void CleanUp(void)
+void CleanUp()
 {
-    //If you can read this, there are no memory leaks no matter what the console says
-    delete player;  // Clean up player
-    delete gameMechs;  // Clean up gameMechs
+    // Clean up dynamically allocated memory
+    delete player;
+    delete gameMechs;
 
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen();
+
+    if (gameMechs->getLoseFlagStatus() == true)
+    {
+        printf("You lose\n");
+        // ASCII art for game over screen
+        std::cout << "GAME OVER!!!\nYou Lose\nWomp Womp :( \n\n";
+    }
+    else if (gameMechs->getScore() >= 10)
+    {
+        printf("You win\n");
+        // ASCII art for win screen
+        std::cout << "Congratulations!!!\nYou Win\nYay!!! :)\n\n";
+    }
 
     MacUILib_uninit();
 }
