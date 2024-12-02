@@ -175,13 +175,12 @@ void DrawScreen(void)
         }
         printf("\n");
     }
-    printf("Score: %d\nGame Speed: %s", gameMechs->getScore(), gameSpeed[speed].c_str());
+    printf("Score: %d\nGame Speed: %s\n", gameMechs->getScore(), gameSpeed[speed].c_str());
+    printf("Press 1-5 to adjust game speed\nPress space to exit\n");
 }
 
 void LoopDelay(void)
 {
-    //MacUILib_Delay(DELAY_CONST); // 0.1s delay
-
     switch (speed)
     {
     case SUPER_SLOW:
@@ -215,24 +214,24 @@ void LoopDelay(void)
 
 void CleanUp()
 {
-    // Clean up dynamically allocated memory
-    delete player;
-    delete gameMechs;
 
     MacUILib_clearScreen();
 
-    if (gameMechs->getLoseFlagStatus() == true)
-    {
-        printf("You lose\n");
-        // ASCII art for game over screen
-        std::cout << "GAME OVER!!!\nYou Lose\nWomp Womp :( \n\n";
-    }
-    else if (gameMechs->getScore() >= 10)
+    if (gameMechs->getLoseFlagStatus() == false)
     {
         printf("You win\n");
         // ASCII art for win screen
         std::cout << "Congratulations!!!\nYou Win\nYay!!! :)\n\n";
     }
+    else 
+    {
+        printf("You lose\n");
+        // ASCII art for game over screen
+        std::cout << "GAME OVER!!!\nYou Lose\nWomp Womp :( \n\n";
+    }
 
+    // Clean up dynamically allocated memory
+    delete player;
+    delete gameMechs;
     MacUILib_uninit();
 }
