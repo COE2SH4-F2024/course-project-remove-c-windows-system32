@@ -7,7 +7,7 @@ class Food
     private:
         objPos foodPos;
         GameMechs* mechs;
-        objPosArrayList* foodArray;
+        objPosArrayList* foodList;
         
     public:
         Food();

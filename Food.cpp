@@ -4,7 +4,7 @@ Food::Food()
 {
     foodPos = objPos();
     mechs = new GameMechs();
-    foodArray = new objPosArrayList();
+    foodList = new objPosArrayList();
     foodPos.setObjPos(mechs->getRand(1,28), mechs->getRand(1,13), 'O');
 
 }
@@ -22,7 +22,7 @@ Food::~Food()
 {
     //delete the food objects
     delete &foodPos;
-    delete &specialFoodPos;
+    delete &foodList;
 }
 
 void Food::cook()
