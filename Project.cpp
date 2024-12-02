@@ -98,6 +98,9 @@ void GetInput(void)
             food->cook();
             printf("b");
             break;
+        case 'n':
+            player->growSnake();
+            break;
     
     default:
         break;

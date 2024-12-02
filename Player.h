@@ -24,6 +24,7 @@ class Player
         objPos getPlayerPos() const; // Upgrade this in iteration 3.       
         void updatePlayerDir();
         void movePlayer();
+        void growSnake();
 
 
         // More methods to be added here
@@ -34,11 +35,9 @@ class Player
 
 
 
-    private:
-        objPos playerPos; // Upgrade this in iteration 3.       
+    private:      
         enum Dir myDir;
         objPosArrayList* snake; // This is the snake body list //Will be upgraded in iteration 3
-        bool moved; // This is a flag to indicate if the snake has moved or not
 
         // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;

@@ -19,7 +19,8 @@ Player::Player(GameMechs* thisGMRef)
 
     snake = new objPosArrayList();
     snake->insertHead(objPos(14, 7, '*'));
-    playerPos = objPos(14, 7, '*');  //Tracks the head position simplifies things a bit but is less efficient
+    snake->insertTail(objPos(13, 7, '*'));
+    snake->insertTail(objPos(12, 7, '*'));
 
     // more things
 }
@@ -35,7 +36,7 @@ Player::~Player()
 
 objPos Player::getPlayerPos() const
 {
-    return playerPos; 
+    return snake->getHead(); 
 }
 
 void Player::updatePlayerDir()
@@ -55,7 +56,7 @@ void Player::updatePlayerDir()
             break;
         
         case 'a':
-            myDir = (myDir != RIGHT)? LEFT:RIGHT;
+            myDir = ((myDir != RIGHT) && (myDir != STOP))? LEFT:RIGHT;
             break;
 
         case 'd':
@@ -67,59 +68,49 @@ void Player::updatePlayerDir()
 
 void Player::movePlayer()
 {
-    moved = false;
     // PPA3 Finite State Machine logic
 
     switch (myDir) //apply snake logic for movement
     {
     case UP:
-        playerPos.pos->y--;
-        moved = true;
+        snake->insertHead(objPos(snake->getHead().pos->x, snake->getHead().pos->y - 1, '*'));
+        snake->removeTail();
         break;
     case DOWN:
-        playerPos.pos->y++;
-        moved = true;
+        snake->insertHead(objPos(snake->getHead().pos->x, snake->getHead().pos->y + 1, '*'));
+        snake->removeTail();
         break;
     case LEFT:
-        playerPos.pos->x--;
-        moved = true;
+        snake->insertHead(objPos(snake->getHead().pos->x - 1, snake->getHead().pos->y, '*'));
+        snake->removeTail();
         break;
     case RIGHT:
-        playerPos.pos->x++;
-        moved = true;
+        snake->insertHead(objPos(snake->getHead().pos->x + 1, snake->getHead().pos->y, '*'));
+        snake->removeTail();
         break;
     default:
         break;
     }
 
     //Do the wraparound logic
-    playerPos.pos->x %= mainGameMechsRef->getBoardSizeX(); //This is here as a failsafe because sometimes funky stuff happened in PPA3 without this statement
-    playerPos.pos->y %= mainGameMechsRef->getBoardSizeY();
-
-    //Proper wraparound logic
-    if(playerPos.pos->x > mainGameMechsRef->getBoardSizeX() - 2)
+    //If the snake goes off the board, it should wrap around to the other side
+    if(snake->getHead().pos->x > mainGameMechsRef->getBoardSizeX() - 2)
     {
-        playerPos.pos->x = 1;
+        snake->setHead(objPos(1, snake->getHead().pos->y, '*'));  
     }
-    else if(playerPos.pos->x < 1)
+    else if(snake->getHead().pos->x < 1)
     {
-        playerPos.pos->x = mainGameMechsRef->getBoardSizeX() - 2;
+        snake->setHead(objPos(mainGameMechsRef->getBoardSizeX() - 2, snake->getHead().pos->y, '*'));
     }
 
-    if(playerPos.pos->y > mainGameMechsRef->getBoardSizeY() - 2)
+    if(snake->getHead().pos->y > mainGameMechsRef->getBoardSizeY() - 2)
     {
-        playerPos.pos->y = 1;
+        snake->setHead(objPos(snake->getHead().pos->x, 1, '*'));
     }
-    else if(playerPos.pos->y < 1)
+    else if(snake->getHead().pos->y < 1)
     {
-        playerPos.pos->y = mainGameMechsRef->getBoardSizeY() - 2;
+        snake->setHead(objPos(snake->getHead().pos->x, mainGameMechsRef->getBoardSizeY() - 2, '*'));
     }
-        
-    //insert new head and delete old tail
-    snake->insertHead(objPos(playerPos.pos->x, playerPos.pos->y, '*'));
-    snake->removeTail();
-
-    moved = false;
 }
 
 // More methods to be added
@@ -127,7 +118,6 @@ void Player::movePlayer()
 Player::Player(const Player& other)
 {
     //copy constructor
-    playerPos = other.playerPos;
     myDir = other.myDir;
     mainGameMechsRef = other.mainGameMechsRef;
 }
@@ -139,7 +129,6 @@ Player& Player::operator=(const Player& other)
     {
         return *this;
     }
-    playerPos = other.playerPos;
     myDir = other.myDir;
     mainGameMechsRef = other.mainGameMechsRef;
     return *this;
@@ -153,4 +142,12 @@ int Player::getSnakeSize() const
 objPos Player::getElement(int index) const
 {
     return snake->getElement(index);
+}
+
+void Player::growSnake()
+{
+    //grow the snake by one
+    //add a new element to the snake
+    //the new element should be the same as the last element
+    snake->insertTail(snake->getTail());
 }
