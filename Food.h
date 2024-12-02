@@ -15,5 +15,12 @@ class Food
         ~Food();
         void cook(); //Generate food function
         objPos getFoodPos() const;
-        objPos getSpecialFoodPos(int randNum) const;
+        objPos getFoodListElement(int index) const;
+        objPosArrayList* getFoodList() const;
+        void setFoodListElement(int index, objPos thisPos);
+        void setFoodListElement(int index, int xPos, int yPos, char sym);
+        void setFoodListElement(int index, int xPos, int yPos);
+        int getFoodListSize() const;
+
+
 };

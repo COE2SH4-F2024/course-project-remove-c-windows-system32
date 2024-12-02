@@ -156,11 +156,16 @@ void RunLogic(void)
                 gameBoard[i][j] = ' ';
             }
         }
-        //add the snakebody to the board
-        for (int i = 0; i < player->getSnakeSize(); i++)
-        {
-            gameBoard[player->getElement(i).pos->y][player->getElement(i).pos->x] = player->getElement(i).symbol;
-        }
+    }
+    //add the snakebody to the board
+    for (int i = 0; i < player->getSnakeSize(); i++)
+    {
+        gameBoard[player->getElement(i).pos->y][player->getElement(i).pos->x] = player->getElement(i).symbol;
+    }
+    //add the food to the board
+    for (int i = 0; i < food->getFoodListSize(); i++)
+    {
+        gameBoard[food->getFoodListElement(i).pos->y][food->getFoodListElement(i).pos->x] = food->getFoodListElement(i).symbol;
     }
 }
 

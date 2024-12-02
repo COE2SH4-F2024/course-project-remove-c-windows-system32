@@ -151,3 +151,42 @@ int GameMechs::getRand(int min, int max)
 {
     return rand() % (max - min + 1) + min;
 }
+
+void GameMechs::setGrid(objPosArrayList* snake, objPos* foods)
+{
+    //set the food on the grid without any overlap
+
+    int coordinates[5][2]; //stores the coordinates of each item in the food list 
+    for(int i = 0; i < 5; i++)
+    {
+        int x = getRand(1,28);
+        int y = getRand(1,13);
+        char sym = 'O';
+        char sym2 = 'X';
+        for(int j = 0; j < i; j++)
+        {
+            if(x == coordinates[j][0] && y == coordinates[j][1])
+            {
+                i--;
+                break;
+            }
+        }
+        for(int j = 0; j < snake->getSize(); j++)
+        {
+            if(x == snake->getElement(j).pos->x && y == snake->getElement(j).pos->y)
+            {
+                i--;
+                break;
+            }
+        }
+
+        if (i > 4)
+        {
+        foods[i].setObjPos(x, y, sym);
+        }
+        else if(i == 4)
+        {
+            foods[i].setObjPos(x, y, sym2);
+        }
+    }
+}

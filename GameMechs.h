@@ -53,7 +53,7 @@ class GameMechs
         char getBorderChar() const;
         void CheckCollision(objPosArrayList* snake, objPos food);
         int GetRandomNumber(int min, int max);
-        
+        void setGrid(objPosArrayList* snake, objPos* foods);
         // More methods should be added here
 
         // [TODO] Implement the missing special member functions to meet the minimum four rule
