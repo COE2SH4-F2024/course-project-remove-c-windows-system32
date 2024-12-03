@@ -233,5 +233,6 @@ void CleanUp()
     // Clean up dynamically allocated memory
     delete player;
     delete gameMechs;
+    delete food;
     MacUILib_uninit();
 }

@@ -13,10 +13,11 @@ objPosArrayList::objPosArrayList()
     }
 }
 
+
+
 objPosArrayList::~objPosArrayList()
 {
     delete[] aList;
-
 }
 
 // [TODO] Implement the missing special member functions to meet the minimum four rule
