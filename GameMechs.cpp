@@ -152,7 +152,7 @@ int GameMechs::getRand(int min, int max)
     return rand() % (max - min + 1) + min;
 }
 
-void GameMechs::setGrid(objPosArrayList* snake, objPos* foods)
+void GameMechs::setGrid(objPosArrayList* snake, objPosArrayList* foods)
 {
     //set the food on the grid without any overlap
 
@@ -180,13 +180,13 @@ void GameMechs::setGrid(objPosArrayList* snake, objPos* foods)
             }
         }
 
-        if (i > 4)
+        if(i < 4)
         {
-        foods[i].setObjPos(x, y, sym);
+            foods->setElement(i, objPos(x, y, sym));
         }
-        else if(i == 4)
+        else if (i == 4)
         {
-            foods[i].setObjPos(x, y, sym2);
+            foods->setElement(i, objPos(x, y, sym2));
         }
     }
 }

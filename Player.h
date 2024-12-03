@@ -34,6 +34,7 @@ class Player
         objPos getElement(int index) const;
         bool hasEaten(objPos food);
         void checkCollision();
+        objPosArrayList* getSnake() const;
 
 
 

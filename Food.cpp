@@ -69,5 +69,10 @@ int Food::getFoodListSize() const
     return foodList->getSize();
 }
 
+objPosArrayList* Food::getFoodList() const
+{
+    return foodList;
+}
+
 
 

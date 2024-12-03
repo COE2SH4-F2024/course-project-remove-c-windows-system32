@@ -179,3 +179,8 @@ void Player::checkCollision()
         }
     }
 }
+
+objPosArrayList* Player::getSnake() const
+{
+    return snake;
+}

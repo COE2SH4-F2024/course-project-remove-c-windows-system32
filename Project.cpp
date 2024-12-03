@@ -53,6 +53,7 @@ void Initialize(void)
     player = new Player(gameMechs);
     food = new Food(gameMechs);
 
+    gameMechs->setGrid(player->getSnake(), food->getFoodList());
     exitFlag = gameMechs->getExitFlagStatus();
 
     speed = MEDIUM;
@@ -97,7 +98,7 @@ void GetInput(void)
         //debug key to be removed later
         case 'b':
             food->cook();
-            printf("b");
+            gameMechs->setGrid(player->getSnake(), food->getFoodList());
             break;
         case 'n':
             player->growSnake();
@@ -149,7 +150,7 @@ void RunLogic(void)
             //set border
             else if (j == 0 || j == gameMechs->getBoardSizeX() - 1 || i == 0 || i == gameMechs->getBoardSizeY() - 1)
             {
-                gameBoard[i][j] = gameMechs->getBorderChar();//
+                gameBoard[i][j] = gameMechs->getBorderChar();
             }
             else
             {
