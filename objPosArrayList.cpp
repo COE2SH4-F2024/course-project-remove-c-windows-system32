@@ -13,14 +13,12 @@ objPosArrayList::objPosArrayList()
     }
 }
 
-
-
+//Destructor
 objPosArrayList::~objPosArrayList()
 {
     delete[] aList;
 }
 
-// [TODO] Implement the missing special member functions to meet the minimum four rule
 //copy constructor
 objPosArrayList::objPosArrayList(const objPosArrayList& other)
 {
@@ -60,51 +58,10 @@ objPosArrayList& objPosArrayList::operator=(const objPosArrayList& other)
     return *this;
 }
 
+//getters
 int objPosArrayList::getSize() const
 {
     return listSize;
-}
-
-void objPosArrayList::insertHead(objPos thisPos)
-{
-    if(listSize < arrayCapacity)
-    {
-        for(int i = listSize; i > 0; i--)
-        {
-            aList[i] = aList[i-1];
-        }
-        aList[0] = thisPos;
-        listSize++;
-    }
-}
-
-void objPosArrayList::insertTail(objPos thisPos)
-{
-    if(listSize < arrayCapacity)
-    {
-        aList[listSize] = thisPos;
-        listSize++;
-    }
-}
-
-void objPosArrayList::removeHead()
-{
-    if(listSize > 0)
-    {
-        for(int i = 0; i < listSize-1; i++)
-        {
-            aList[i] = aList[i+1];
-        }
-        listSize--;
-    }
-}
-
-void objPosArrayList::removeTail()
-{
-    if(listSize > 0)
-    {
-        listSize--;
-    }
 }
 
 objPos objPosArrayList::getHead() const
@@ -127,6 +84,7 @@ void objPosArrayList::setElement(int index, objPos thisPos)
     aList[index] = thisPos;
 }
 
+//setters
 void objPosArrayList::setHead(objPos thisPos)
 {
     aList[0] = thisPos;
@@ -135,4 +93,48 @@ void objPosArrayList::setHead(objPos thisPos)
 void objPosArrayList::setTail(objPos thisPos)
 {
     aList[listSize - 1] = thisPos;
+}
+
+//insertions
+void objPosArrayList::insertHead(objPos thisPos)
+{
+    if(listSize < arrayCapacity)
+    {
+        for(int i = listSize; i > 0; i--)
+        {
+            aList[i] = aList[i-1];
+        }
+        aList[0] = thisPos;
+        listSize++;
+    }
+}
+
+void objPosArrayList::insertTail(objPos thisPos)
+{
+    if(listSize < arrayCapacity)
+    {
+        aList[listSize] = thisPos;
+        listSize++;
+    }
+}
+
+//removals
+void objPosArrayList::removeHead()
+{
+    if(listSize > 0)
+    {
+        for(int i = 0; i < listSize-1; i++)
+        {
+            aList[i] = aList[i+1];
+        }
+        listSize--;
+    }
+}
+
+void objPosArrayList::removeTail()
+{
+    if(listSize > 0)
+    {
+        listSize--;
+    }
 }

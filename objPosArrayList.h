@@ -13,24 +13,31 @@ class objPosArrayList
         int arrayCapacity;
 
     public:
+        //rule of 6/4 stuff
         objPosArrayList();
         ~objPosArrayList();
-        //rule of 6/4 stuff
         objPosArrayList(const objPosArrayList& other);
         objPosArrayList& operator=(const objPosArrayList& other);
 
+        //getters
         int getSize() const;
-        void insertHead(objPos thisPos);
-        void insertTail(objPos thisPos);
-        void removeHead();
-        void removeTail();
-        
         objPos getHead() const;
         objPos getTail() const;
         objPos getElement(int index) const;
+
+        //setters
         void setElement(int index, objPos thisPos);
         void setHead(objPos thisPos);
         void setTail(objPos thisPos);
+
+        //insertions
+        void insertHead(objPos thisPos);
+        void insertTail(objPos thisPos);
+
+        //removals
+        void removeHead();
+        void removeTail();
+        
 };
 
 #endif

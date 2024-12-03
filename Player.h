@@ -17,25 +17,27 @@ class Player
     public:
         enum Dir {UP, DOWN, LEFT, RIGHT, STOP};  // This is the direction state
 
+        //member functions
         Player();
         Player(GameMechs* thisGMRef);
         ~Player();
-
-        objPos getPlayerPos() const; // Upgrade this in iteration 3.       
-        void updatePlayerDir();
-        void movePlayer();
-        void growSnake();
-
-
-        // More methods to be added here
         Player(const Player& other);
         Player& operator=(const Player& other);
+
+        //getters
+        objPos getPlayerPos() const;      
         int getSnakeSize() const;
         objPos getElement(int index) const;
-        int hasEaten(objPosArrayList* foods);
-        void checkCollision();
         objPosArrayList* getSnake() const;
 
+        //setters
+        void updatePlayerDir();
+
+        //other functions
+        void movePlayer();
+        void checkCollision();
+        int hasEaten(objPosArrayList* foods);
+        void growSnake();
 
 
     private:      

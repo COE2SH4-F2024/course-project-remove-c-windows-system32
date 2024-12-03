@@ -9,6 +9,7 @@ using namespace std;
 
 #define DELAY_CONST 100000
 
+//Global variables
 bool exitFlag;
 GameMechs* gameMechs;
 Player* player;
@@ -18,7 +19,7 @@ std::string gameSpeed[5] = {"Super Slow", "Slow","Medium", "Fast", "Super Fast"}
 enum GameSpeed {SUPER_SLOW, SLOW, MEDIUM, FAST, SUPER_FAST};
 GameSpeed speed;
 
-
+//Function prototypes
 void Initialize(void);
 void GetInput(void);
 void RunLogic(void);
@@ -27,7 +28,7 @@ void LoopDelay(void);
 void CleanUp(void);
 
 
-
+//Main function (stuff happens here)
 int main(void)
 {
     Initialize();
@@ -40,22 +41,23 @@ int main(void)
     }
 
     CleanUp();
-
 }
 
-
+//initialize things
 void Initialize(void)
 {
+    // Initialize the MacUILib
     MacUILib_init();
     MacUILib_clearScreen();
 
+    //instansiate the needed objects
     gameMechs = new GameMechs();
     player = new Player(gameMechs);
     food = new Food(gameMechs);
 
+    //prep the game board
     gameMechs->setGrid(player->getSnake(), food->getFoodList());
     exitFlag = gameMechs->getExitFlagStatus();
-
     speed = MEDIUM;
     
 
@@ -64,22 +66,26 @@ void Initialize(void)
 
 void GetInput(void)
 {
+    // Check if there is a character in the input buffer
     if(MacUILib_hasChar())
     {
+        //save the character in the input buffer
         char input = MacUILib_getChar();
 
+        //send the input to the processing chamber
         gameMechs->setInput(input);
         player->updatePlayerDir();
-
-        //Trying to think of a place to check exit flag, probably in RunLogic
     }
     
+    //some external input processing
     switch (gameMechs->getInput())
     {
+        //exit key
         case ' ':
             gameMechs->setExitTrue();
             gameMechs->setLoseFlag();
             break;
+        //speed keys
         case '1':
             speed = SUPER_SLOW;
             break;
@@ -95,29 +101,30 @@ void GetInput(void)
         case '5':
             speed = SUPER_FAST;
             break;
-        //debug key to be removed later
-        case 'b':
-            food->cook(4, gameMechs, player->getSnake());
-            //gameMechs->setGrid(player->getSnake(), food->getFoodList());
+        default:
             break;
-        case 'n':
-            player->growSnake();
-            break;
-    
-    default:
-        break;
     }
-    gameMechs->clearInput();//clear the input after processing
+
+    //clear the input after processing
+    gameMechs->clearInput();
 }
 
+//run logic, where the magic happens
 void RunLogic(void)
 {
+    //move the player accordingly based on direction
     player->movePlayer();
+
+    //check if the player has eaten any food and save its index
     int eaten = player->hasEaten(food->getFoodList());
+
+    //if the index is not -1, cook some food
     if(eaten != -1)
     {
+        //let him cook, (im a great chef)
         food->cook(eaten, gameMechs, player->getSnake());
     }
+    //check if the player has collided with itself
     player->checkCollision();
     
 
@@ -131,7 +138,7 @@ void RunLogic(void)
         exitFlag = true;
     }
 
-
+    //update the game board
     for (int i = 0; i < gameMechs->getBoardSizeY(); i++)
     {
         for (int j = 0; j < gameMechs->getBoardSizeX(); j++)
@@ -164,9 +171,12 @@ void RunLogic(void)
     }
 }
 
+//draw the screen
 void DrawScreen(void)
 {
+    //clear screen
     MacUILib_clearScreen();
+    //loop through the arrays and print each line
     for(int i = 0; i < gameMechs->getBoardSizeY(); i++)
     {
         for(int j = 0; j < gameMechs->getBoardSizeX(); j++)
@@ -175,12 +185,14 @@ void DrawScreen(void)
         }
         printf("\n");
     }
+    //print the score and game speed
     printf("Score: %d\nGame Speed: %s\n", gameMechs->getScore(), gameSpeed[speed].c_str());
     printf("Press 1-5 to adjust game speed\nPress space to exit\nBeware of the X!!!");
 }
 
 void LoopDelay(void)
 {
+    //delay based on the game speed
     switch (speed)
     {
     case SUPER_SLOW:
@@ -211,28 +223,29 @@ void LoopDelay(void)
 
 }
 
-
+//clear everything up
 void CleanUp()
 {
-
+    //clear the screen
     MacUILib_clearScreen();
 
+    //check if the player won or lost
     if (gameMechs->getLoseFlagStatus() == false)
     {
-        printf("You win\n");
-        // ASCII art for win screen
+        // win screen
         std::cout << "Congratulations!!!\nYou Win\nYay!!! :)\n\n";
     }
     else 
     {
-        printf("You lose\n");
-        // ASCII art for game over screen
+        //lose screen
         std::cout << "GAME OVER!!!\nYou Lose\nWomp Womp :( \n\n";
     }
 
-    // Clean up dynamically allocated memory
+    // Clean up dynamically allocated memory (no memory leakage allowed here)
     delete player;
     delete gameMechs;
     delete food;
     MacUILib_uninit();
 }
+
+//done :)

@@ -25,7 +25,7 @@ Player::Player(GameMechs* thisGMRef)
     // more things
 }
 
-
+// Destructor
 Player::~Player()
 {
     // delete any heap members here
@@ -34,14 +34,50 @@ Player::~Player()
     
 }
 
+//copy constructor
+Player::Player(const Player& other)
+{
+    myDir = other.myDir;
+    mainGameMechsRef = other.mainGameMechsRef;
+}
+
+//copy assignment operator
+Player& Player::operator=(const Player& other)
+{
+    if(this == &other)
+    {
+        return *this;
+    }
+    myDir = other.myDir;
+    mainGameMechsRef = other.mainGameMechsRef;
+    return *this;
+}
+
+//getters
+objPosArrayList* Player::getSnake() const
+{
+    return snake;
+}
+
+int Player::getSnakeSize() const
+{
+    return snake->getSize();
+}
+
+objPos Player::getElement(int index) const
+{
+    return snake->getElement(index);
+}
+
 objPos Player::getPlayerPos() const
 {
     return snake->getHead(); 
 }
 
+//setters
 void Player::updatePlayerDir()
 {
-        // PPA3 input processing logic  
+    // PPA3 input processing logic  
     //get the input from the user and update the direction accordingly
     char input = mainGameMechsRef->getInput();
 
@@ -66,11 +102,13 @@ void Player::updatePlayerDir()
 
 }
 
+//other functions
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
 
-    switch (myDir) //apply snake logic for movement
+    //apply snake logic for movement
+    switch (myDir) //for each direction, insert a new head accordingly and remove the tail
     {
     case UP:
         snake->insertHead(objPos(snake->getHead().pos->x, snake->getHead().pos->y - 1, '*'));
@@ -113,82 +151,52 @@ void Player::movePlayer()
     }
 }
 
-// More methods to be added
-
-Player::Player(const Player& other)
-{
-    //copy constructor
-    myDir = other.myDir;
-    mainGameMechsRef = other.mainGameMechsRef;
-}
-
-Player& Player::operator=(const Player& other)
-{
-    //copy assignment operator
-    if(this == &other)
-    {
-        return *this;
-    }
-    myDir = other.myDir;
-    mainGameMechsRef = other.mainGameMechsRef;
-    return *this;
-}
-
-int Player::getSnakeSize() const
-{
-    return snake->getSize();
-}
-
-objPos Player::getElement(int index) const
-{
-    return snake->getElement(index);
-}
-
 void Player::growSnake()
 {
-    //grow the snake by one
-    //add a new element to the snake
-    //the new element should be the same as the last element
+    //add a new tail element to the snake where the old tail was
     snake->insertTail(snake->getTail());
 }
 
+//check if the snake has eaten the food, and then return the index of the food that was eaten
 int Player::hasEaten(objPosArrayList* foods)
 {
     //check if the snake has eaten the food
-    //if the snake has eaten the food, grow the snake
-
+    //if the snake has eaten the food, grow the snake and increment the score
+    //loop through the food list and check if the snake head is at the same position as the food
     for(int i = 0; i < 5; i++)
     {
+        //if the snake has eaten the food, grow the snake and increment the score
         if(snake->getHead().isPosEqual(foods->getElement(i)))
         {
             growSnake();
             mainGameMechsRef->incrementScore();
+            //if the snake eats the X, the player loses
             if (foods->getElement(i).symbol == 'X')
             {
                 mainGameMechsRef->setLoseFlag();
                 mainGameMechsRef->setExitTrue();
             }
+            //return the index of the food that was eaten
             return i;
         }
     }
+    //return -1 if the snake has not eaten any food
     return -1;
 }
 
+//check if the snake has collided with itself
 void Player::checkCollision()
 {
     //check if the snake has collided with itself
     //if the snake has collided with itself, the player loses
+    //loop through the snake and check if the head is at the same position as any other part of the snake
     for(int i = 1; i < snake->getSize(); i++)
     {
+        //if the head is in the same position as any other part of the snake, the player loses
         if(snake->getHead().isPosEqual(snake->getElement(i)))
         {
             mainGameMechsRef->setLoseFlag();
             mainGameMechsRef->setExitTrue();
         }
     }
-}
-
-objPosArrayList* Player::getSnake() const
-{
-    return snake;
 }

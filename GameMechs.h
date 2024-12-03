@@ -28,39 +28,35 @@ class GameMechs
         objPos food;
 
     public:
+
+        // Rule of 6/4 stuff
         GameMechs();
         GameMechs(int boardX, int boardY);
         ~GameMechs(); // is this one needed at all? Why or why not?
-        
-        bool getExitFlagStatus() const; 
-        void setExitTrue();
-        bool getLoseFlagStatus() const;
-        void setLoseFlag();
-
-        char getInput() const;
-        int getRand(int min, int max);
-        void setInput(char this_input);
-        void clearInput();
-
-        int getBoardSizeX() const;
-        int getBoardSizeY() const;
-        
-        int getScore() const;
-        void incrementScore();
-
-        char getBoardElement(int x, int y) const;
-        void setBoardElement(int x, int y, char thisChar);
-        char getBorderChar() const;
-        void CheckCollision(objPosArrayList* snake, objPos food);
-        int GetRandomNumber(int min, int max);
-        void setGrid(objPosArrayList* snake, objPosArrayList* foods);
-        // More methods should be added here
-
-        // [TODO] Implement the missing special member functions to meet the minimum four rule
         GameMechs(const GameMechs& other);
         GameMechs& operator=(const GameMechs& other);
-
         
+        //getters
+        bool getExitFlagStatus() const; 
+        bool getLoseFlagStatus() const;
+        char getInput() const;
+        int getRand(int min, int max);
+        int getBoardSizeX() const;
+        int getBoardSizeY() const;
+        int getScore() const;
+        char getBoardElement(int x, int y) const;
+        char getBorderChar() const;
+        int GetRandomNumber(int min, int max);
+        
+        //setters
+        void setExitTrue();
+        void setLoseFlag();
+        void setInput(char this_input);
+        void clearInput();
+        void incrementScore();
+        void setBoardElement(int x, int y, char thisChar);
+        void CheckCollision(objPosArrayList* snake, objPos food);
+        void setGrid(objPosArrayList* snake, objPosArrayList* foods);        
 };
 
 #endif

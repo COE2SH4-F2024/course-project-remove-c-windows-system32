@@ -16,9 +16,8 @@ objPos::objPos(int xPos, int yPos, char sym)
     symbol = sym;
 }
 
-// Respect the rule of six / minimum four
-// [TODO] Implement the missing special member functions to meet the minimum four rule
-
+// Rule of 6 minimun 4 stuff
+//Copy Constructor
 objPos::objPos(const objPos& other)
 {
     pos = new Pos;
@@ -26,7 +25,7 @@ objPos::objPos(const objPos& other)
     pos->y = other.pos->y;
     symbol = other.symbol;
 }
-
+//Copy assignment operator
 objPos& objPos::operator=(const objPos& other)
 {
     if(this == &other)
@@ -38,15 +37,13 @@ objPos& objPos::operator=(const objPos& other)
     pos->y = other.pos->y;
     symbol = other.symbol;
 }
-
+//Destructor
 objPos::~objPos()
 {
     delete pos;
 }
 
-
-
-
+//setters
 void objPos::setObjPos(objPos o)
 {
     pos->x = o.pos->x;
@@ -61,6 +58,7 @@ void objPos::setObjPos(int xPos, int yPos, char sym)
     symbol = sym;
 }
 
+//getters
 objPos objPos::getObjPos() const
 {
     objPos returnPos;
@@ -76,15 +74,18 @@ char objPos::getSymbol() const
     return symbol;
 }
 
+//Check if the position is equal to the reference position
 bool objPos::isPosEqual(const objPos& refPos) const
 {
     return (pos->x == refPos.pos->x && pos->y == refPos.pos->y);
 }
 
+//Get the symbol if the position is equal to the reference position
 char objPos::getSymbolIfPosEqual(const objPos& refPos) const
 {
     if(isPosEqual(refPos))
         return symbol;
+    //return NULL if the position is not equal
     else
         return 0;
 }
