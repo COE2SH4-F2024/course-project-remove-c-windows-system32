@@ -97,8 +97,8 @@ void GetInput(void)
             break;
         //debug key to be removed later
         case 'b':
-            food->cook();
-            gameMechs->setGrid(player->getSnake(), food->getFoodList());
+            food->cook(4, gameMechs, player->getSnake());
+            //gameMechs->setGrid(player->getSnake(), food->getFoodList());
             break;
         case 'n':
             player->growSnake();
@@ -113,10 +113,10 @@ void GetInput(void)
 void RunLogic(void)
 {
     player->movePlayer();
-    if(player->hasEaten(food->getFoodPos()) == true)
+    int eaten = player->hasEaten(food->getFoodList());
+    if(eaten != -1)
     {
-        food->cook();
-        printf("Food eaten\n");//
+        food->cook(eaten, gameMechs, player->getSnake());
     }
     player->checkCollision();
     
@@ -137,12 +137,6 @@ void RunLogic(void)
         for (int j = 0; j < gameMechs->getBoardSizeX(); j++)
         {
             // [TODO] Draw the game board here
-            //place the player
-            // if (j == player->getPlayerPos().pos->x && i == player->getPlayerPos().pos->y)
-            // {
-            //     gameBoard[i][j] = player->getPlayerPos().symbol;
-            // }
-            // //set food
             if (j == food->getFoodPos().pos->x && i == food->getFoodPos().pos->y)//compare food position with i and j
             {
                 gameBoard[i][j] = food->getFoodPos().symbol;
@@ -182,7 +176,7 @@ void DrawScreen(void)
         printf("\n");
     }
     printf("Score: %d\nGame Speed: %s\n", gameMechs->getScore(), gameSpeed[speed].c_str());
-    printf("Press 1-5 to adjust game speed\nPress space to exit\n");
+    printf("Press 1-5 to adjust game speed\nPress space to exit\nBeware of the X!!!");
 }
 
 void LoopDelay(void)

@@ -32,7 +32,7 @@ class Player
         Player& operator=(const Player& other);
         int getSnakeSize() const;
         objPos getElement(int index) const;
-        bool hasEaten(objPos food);
+        int hasEaten(objPosArrayList* foods);
         void checkCollision();
         objPosArrayList* getSnake() const;
 

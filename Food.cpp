@@ -13,7 +13,6 @@ Food::Food(GameMechs* mechs)
 {
     //set the x and y coordinates of the food
     foodPos = objPos();
-    foodPos.setObjPos(mechs->getRand(1,28), mechs->getRand(1,13), 'O');
     foodList = new objPosArrayList();
 
     foodList->insertHead(objPos(mechs->getRand(1,28), mechs->getRand(1,13), 'O'));
@@ -30,10 +29,33 @@ Food::~Food()
     delete &foodList;
 }
 
-void Food::cook()
+void Food::cook(int index, GameMechs* mechs, objPosArrayList* snake)
 {
-    //generate the food at a random location
-    foodPos.setObjPos(mechs->getRand(1,28),mechs->getRand(1,13) , 'O');
+    //generate the food at a random location that doesn't overlap with the snake or other food
+    int coordinates[5][2]; //stores the coordinates of each item in the food list 
+    for(int i = 0; i < 5; i++)
+    {
+        int x = mechs->getRand(1,28);
+        int y = mechs->getRand(1,13);
+        for(int j = 0; j < i; j++)
+        {
+            if(x == coordinates[j][0] && y == coordinates[j][1])
+            {
+                i--;
+                break;
+            }
+        }
+        for(int j = 0; j < snake->getSize(); j++)
+        {
+            if(x == snake->getElement(j).pos->x && y == snake->getElement(j).pos->y)
+            {
+                i--;
+                break;
+            }
+        }
+
+    setFoodListElement(index, objPos(x, y, getFoodListElement(index).symbol));
+    }
 }
 
 objPos Food::getFoodPos() const

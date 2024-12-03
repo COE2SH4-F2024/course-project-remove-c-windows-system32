@@ -5,15 +5,15 @@
 class Food
 {
     private:
-        objPos foodPos;
         GameMechs* mechs;
         objPosArrayList* foodList;
+        objPos foodPos;
         
     public:
         Food();
         Food(GameMechs* mechs);
         ~Food();
-        void cook(); //Generate food function
+        void cook(int index, GameMechs* mechs, objPosArrayList* snake); //Generate food function
         objPos getFoodPos() const;
         objPos getFoodListElement(int index) const;
         objPosArrayList* getFoodList() const;

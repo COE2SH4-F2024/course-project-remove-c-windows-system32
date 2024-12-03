@@ -152,18 +152,26 @@ void Player::growSnake()
     snake->insertTail(snake->getTail());
 }
 
-bool Player::hasEaten(objPos food)
+int Player::hasEaten(objPosArrayList* foods)
 {
     //check if the snake has eaten the food
     //if the snake has eaten the food, grow the snake
-    //if(snake->getHead().isPosEqual(&food))
-    if(snake->getHead().pos->x == food.pos->x && snake->getHead().pos->y == food.pos->y)
+
+    for(int i = 0; i < 5; i++)
     {
-        growSnake();
-        mainGameMechsRef->incrementScore();
-        return true;
+        if(snake->getHead().isPosEqual(foods->getElement(i)))
+        {
+            growSnake();
+            mainGameMechsRef->incrementScore();
+            if (foods->getElement(i).symbol == 'X')
+            {
+                mainGameMechsRef->setLoseFlag();
+                mainGameMechsRef->setExitTrue();
+            }
+            return i;
+        }
     }
-    return false;
+    return -1;
 }
 
 void Player::checkCollision()
