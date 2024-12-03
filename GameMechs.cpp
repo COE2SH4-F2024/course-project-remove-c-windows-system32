@@ -89,6 +89,11 @@ int GameMechs::getBoardSizeX() const
     return boardSizeX;
 }
 
+char GameMechs::getBorderChar() const
+{
+    return borderChar;
+}
+
 int GameMechs::getBoardSizeY() const
 {
     return boardSizeY;
@@ -166,7 +171,7 @@ void GameMechs::setGrid(objPosArrayList* snake, objPosArrayList* foods)
                 break;
             }
         }
-        
+
         //set 4 regular foods and one special food
         if(i < 4)
         {
